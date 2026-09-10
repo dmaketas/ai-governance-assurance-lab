@@ -35,15 +35,112 @@
     "RES-01": "planned",
     "CHG-01": "partial"
   },
+  "control_owners": {
+    "GOV-03": "AI Governance Board",
+    "AGT-02": "Product Owner",
+    "EVAL-01": "AI Security Lead",
+    "IR-01": "Incident Response Lead",
+    "RES-01": "Service Owner",
+    "SEC-02": "AppSec Lead",
+    "AGT-01": "Enterprise Architecture",
+    "MON-01": "Security Operations",
+    "MON-02": "AI Platform Team"
+  },
+  "control_due_dates": {
+    "GOV-03": "2026-09-25",
+    "AGT-02": "2026-09-20",
+    "EVAL-01": "2026-10-10",
+    "IR-01": "2026-10-15",
+    "RES-01": "2026-10-20",
+    "SEC-02": "2026-09-30",
+    "AGT-01": "2026-09-28",
+    "MON-01": "2026-10-05",
+    "MON-02": "2026-10-05"
+  },
   "evidence": {
     "GOV-01": [
-      "OWNER-001"
+      {
+        "evidence_id": "OWNER-001",
+        "evidence_type": "approval_record",
+        "reference": "Owner nomination",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 15
+      }
     ],
     "DATA-01": [
-      "DATA-001"
+      {
+        "evidence_id": "DATA-001",
+        "evidence_type": "design",
+        "reference": "Data classification",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 20
+      }
     ],
     "SEC-01": [
-      "IAM-001"
+      {
+        "evidence_id": "IAM-001",
+        "evidence_type": "configuration",
+        "reference": "Service identity config",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 8
+      }
+    ],
+    "SEC-02": [
+      {
+        "evidence_id": "APPSEC-001",
+        "evidence_type": "test_results",
+        "reference": "Early prompt-injection tests",
+        "quality": "medium",
+        "verified": false,
+        "freshness_days": 5
+      }
+    ],
+    "AGT-01": [
+      {
+        "evidence_id": "TOOL-001",
+        "evidence_type": "architecture",
+        "reference": "Tool gateway prototype",
+        "quality": "medium",
+        "verified": false,
+        "freshness_days": 6
+      }
+    ],
+    "MON-01": [
+      {
+        "evidence_id": "LOG-001",
+        "evidence_type": "configuration",
+        "reference": "Pilot audit logging",
+        "quality": "medium",
+        "verified": false,
+        "freshness_days": 3
+      }
     ]
-  }
+  },
+  "exceptions": [
+    {
+      "exception_id": "EX-AGT-001",
+      "control_id": "AGT-02",
+      "rationale": "Pilot limited to non-production synthetic transactions while approval workflow is completed.",
+      "approver": "AI Risk Owner",
+      "expiry_date": "2026-09-30",
+      "compensating_controls": [
+        "Sandbox environment",
+        "Synthetic data",
+        "Daily review"
+      ]
+    },
+    {
+      "exception_id": "EX-GOV-OLD",
+      "control_id": "GOV-03",
+      "rationale": "Temporary governance route used during pilot.",
+      "approver": "Programme Sponsor",
+      "expiry_date": "2026-08-31",
+      "compensating_controls": [
+        "Weekly steering review"
+      ]
+    }
+  ]
 }

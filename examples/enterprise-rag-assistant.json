@@ -32,27 +32,187 @@
     "PRV-01": "implemented",
     "CHG-01": "implemented"
   },
+  "control_owners": {
+    "DATA-02": "Data Governance Lead",
+    "MOD-01": "AI Platform Owner",
+    "MON-02": "Security Operations"
+  },
+  "control_due_dates": {
+    "DATA-02": "2026-10-15",
+    "MOD-01": "2026-10-31",
+    "MON-02": "2026-09-30"
+  },
   "evidence": {
     "GOV-01": [
-      "EA-OWN-001"
+      {
+        "evidence_id": "EA-OWN-001",
+        "evidence_type": "approval_record",
+        "reference": "Ownership approval record",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 35
+      }
+    ],
+    "GOV-02": [
+      {
+        "evidence_id": "USE-BOUND-002",
+        "evidence_type": "policy",
+        "reference": "Approved intended-use statement",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 40
+      }
+    ],
+    "GOV-03": [
+      {
+        "evidence_id": "RISK-AUTH-001",
+        "evidence_type": "approval_record",
+        "reference": "Risk acceptance matrix",
+        "quality": "authoritative",
+        "verified": true,
+        "freshness_days": 75
+      }
     ],
     "DATA-01": [
-      "DATA-CLASS-014"
+      {
+        "evidence_id": "DATA-CLASS-014",
+        "evidence_type": "design",
+        "reference": "Knowledge base classification",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 20
+      }
+    ],
+    "DATA-02": [
+      {
+        "evidence_id": "DATA-PROV-003",
+        "evidence_type": "design",
+        "reference": "Partial source inventory",
+        "quality": "medium",
+        "verified": false,
+        "freshness_days": 50
+      }
     ],
     "SEC-01": [
-      "IAM-DESIGN-003"
+      {
+        "evidence_id": "IAM-DESIGN-003",
+        "evidence_type": "configuration",
+        "reference": "SSO/RBAC export",
+        "quality": "authoritative",
+        "verified": true,
+        "freshness_days": 10
+      }
     ],
     "SEC-02": [
-      "SEC-TEST-007"
+      {
+        "evidence_id": "SEC-TEST-007",
+        "evidence_type": "test_results",
+        "reference": "Prompt-injection test results",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 12
+      }
     ],
     "RAG-01": [
-      "RAG-ARCH-004"
+      {
+        "evidence_id": "RAG-ARCH-004",
+        "evidence_type": "architecture",
+        "reference": "RAG trust-boundary design",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 15
+      }
     ],
-    "MON-01": [
-      "LOG-CTRL-002"
+    "MOD-01": [
+      {
+        "evidence_id": "SUP-DUE-004",
+        "evidence_type": "self_attestation",
+        "reference": "Supplier questionnaire",
+        "quality": "medium",
+        "verified": false,
+        "freshness_days": 120
+      }
+    ],
+    "MOD-02": [
+      {
+        "evidence_id": "MODEL-CFG-002",
+        "evidence_type": "configuration",
+        "reference": "Model/version registry",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 8
+      }
     ],
     "EVAL-01": [
-      "AI-EVAL-006"
+      {
+        "evidence_id": "AI-EVAL-006",
+        "evidence_type": "test_results",
+        "reference": "Adversarial evaluation",
+        "quality": "authoritative",
+        "verified": true,
+        "freshness_days": 7
+      }
+    ],
+    "EVAL-02": [
+      {
+        "evidence_id": "QUAL-EVAL-011",
+        "evidence_type": "test_results",
+        "reference": "Quality acceptance suite",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 9
+      }
+    ],
+    "MON-01": [
+      {
+        "evidence_id": "LOG-CTRL-002",
+        "evidence_type": "configuration",
+        "reference": "Security logging config",
+        "quality": "authoritative",
+        "verified": true,
+        "freshness_days": 5
+      }
+    ],
+    "MON-02": [
+      {
+        "evidence_id": "MON-DASH-001",
+        "evidence_type": "monitoring_record",
+        "reference": "Pilot monitoring dashboard",
+        "quality": "medium",
+        "verified": false,
+        "freshness_days": 4
+      }
+    ],
+    "HUM-01": [
+      {
+        "evidence_id": "HUM-DES-001",
+        "evidence_type": "design",
+        "reference": "Human oversight procedure",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 25
+      }
+    ],
+    "PRV-01": [
+      {
+        "evidence_id": "PRV-REV-001",
+        "evidence_type": "approval_record",
+        "reference": "Privacy review",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 30
+      }
+    ],
+    "CHG-01": [
+      {
+        "evidence_id": "CHG-WF-001",
+        "evidence_type": "configuration",
+        "reference": "AI change workflow",
+        "quality": "high",
+        "verified": true,
+        "freshness_days": 18
+      }
     ]
-  }
+  },
+  "exceptions": []
 }

@@ -9,29 +9,45 @@ def markdown_report(use_case: AIUseCase, result: AssuranceResult) -> str:
         "",
         f"**Decision:** `{result.decision}`",
         "",
-        "## Risk summary",
+        "## Risk and assurance summary",
         "",
         f"- Inherent risk: **{result.inherent_risk}/100 ({result.risk_band})**",
         f"- Control coverage: **{result.control_coverage}%**",
+        f"- Evidence assurance: **{result.evidence_assurance}%**",
         f"- Residual risk: **{result.residual_risk}/100**",
         "",
-        "## Decision rationale",
+        "## Policy-as-code gates",
         "",
+        "| Gate | Severity | Result | Message |",
+        "|---|---|---:|---|",
     ]
+
+    for gate in result.policy_gates:
+        lines.append(
+            f"| {gate.gate_id} — {gate.name} | {gate.severity} | "
+            f"{'PASS' if gate.passed else 'FAIL'} | {gate.message} |"
+        )
+
+    lines.extend(["", "## Decision rationale", ""])
     lines.extend(f"- {reason}" for reason in result.reasons)
 
     lines.extend([
         "",
         "## Control results",
         "",
-        "| Control | Domain | Status | Evidence | Score | Critical |",
-        "|---|---|---:|---:|---:|---:|",
+        "| Control | Domain | Status | Owner | Due | Evidence | Evidence quality | Score | Exception | Critical |",
+        "|---|---|---:|---|---|---:|---:|---:|---|---:|",
     ])
 
     for r in result.control_results:
+        ex = ""
+        if r.exception_id:
+            ex = f"{r.exception_id} ({'valid' if r.exception_valid else 'invalid/expired'})"
         lines.append(
             f"| {r.control_id} — {r.title} | {r.domain} | {r.status} | "
-            f"{r.evidence_count} | {r.score:.2f} | {'Yes' if r.critical else 'No'} |"
+            f"{r.owner or '—'} | {r.due_date or '—'} | {r.evidence_count} | "
+            f"{r.evidence_quality:.3f} | {r.score:.3f} | {ex or '—'} | "
+            f"{'Yes' if r.critical else 'No'} |"
         )
 
     unresolved = [
@@ -40,9 +56,23 @@ def markdown_report(use_case: AIUseCase, result: AssuranceResult) -> str:
     ]
     lines.extend(["", "## Unresolved items", ""])
     if unresolved:
-        lines.extend(f"- **{r.control_id}** {r.title}: {r.status}" for r in unresolved)
+        for r in unresolved:
+            owner = r.owner or "UNASSIGNED"
+            due = r.due_date or "NO DUE DATE"
+            lines.append(
+                f"- **{r.control_id}** {r.title}: {r.status}; owner: {owner}; due: {due}."
+            )
     else:
         lines.append("- None.")
+
+    if use_case.exceptions:
+        lines.extend(["", "## Exceptions", ""])
+        for ex in use_case.exceptions:
+            lines.append(
+                f"- **{ex['exception_id']}** for {ex['control_id']}: "
+                f"{ex.get('rationale','')}; approver: {ex.get('approver','')}; "
+                f"expires: {ex.get('expiry_date','')}."
+            )
 
     lines.extend([
         "",

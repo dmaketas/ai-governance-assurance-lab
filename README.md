@@ -1,115 +1,117 @@
 # AI Governance & Assurance Lab
 
-A practical Python lab for turning an AI use case into a traceable governance and assurance decision.
+A practical Python lab for turning an AI use case into a traceable, evidence-based governance and assurance decision.
 
-**Version:** 0.1.0
+**Version:** 0.2.0
 
-The project demonstrates a lightweight workflow for:
+The project implements the workflow:
 
-1. registering an AI use case,
-2. assessing inherent risk,
-3. identifying governance and security controls,
-4. attaching evidence,
-5. evaluating control coverage,
-6. calculating residual risk,
-7. producing a decision-oriented assurance report.
-
-It is intentionally implementation-focused rather than a collection of policy notes.
+```text
+AI use case
+    ↓
+inherent risk
+    ↓
+applicable controls
+    ↓
+implementation status
+    ↓
+evidence quality
+    ↓
+exceptions + owners + due dates
+    ↓
+policy-as-code gates
+    ↓
+residual risk
+    ↓
+assurance decision
+```
 
 ## Why this project exists
 
-AI governance often stops at principles, questionnaires, or compliance checklists. This lab explores a more operational model: **risk → controls → evidence → residual risk → decision**.
+AI governance often stops at principles, questionnaires or compliance checklists. This lab explores a more operational model:
 
-The goal is to make assurance traceable enough that an architect, security practitioner, risk owner, auditor, or approval body can understand:
+**risk → controls → evidence → exceptions → policy gates → residual risk → decision**
 
-- what the AI system does,
+The objective is not to generate a green dashboard. It is to make an AI assurance decision traceable enough that an architect, security practitioner, risk owner, auditor or approval body can understand:
+
+- what the system does,
 - what could go wrong,
-- which controls are expected,
-- what evidence actually exists,
-- what remains unresolved,
-- whether deployment should be approved, conditionally approved, or blocked.
+- which controls apply,
+- who owns unresolved actions,
+- what evidence supports implementation claims,
+- whether exceptions are valid and time-bound,
+- which policy gates pass or fail,
+- what residual risk remains,
+- why the deployment decision was reached.
+
+## What is new in v0.2
+
+### Evidence-quality scoring
+
+Evidence is now scored using:
+
+- evidence type,
+- intrinsic quality,
+- verification status,
+- freshness.
+
+An implemented control without strong evidence no longer receives full assurance credit.
+
+### Control ownership and due dates
+
+Unresolved controls can have:
+
+- accountable owners,
+- remediation due dates.
+
+Policy gates identify unassigned and overdue actions.
+
+### Exception management
+
+Exceptions record:
+
+- the affected control,
+- rationale,
+- approver,
+- expiry date,
+- compensating controls.
+
+Expired or invalid exceptions are surfaced explicitly and can block approval.
+
+### Policy-as-code
+
+Deterministic gates prevent aggregate numerical scores from hiding critical weaknesses.
+
+Current gates cover:
+
+- critical control gaps,
+- invalid/expired exceptions,
+- missing control owners,
+- overdue remediation,
+- minimum evidence assurance.
+
+### Committed assurance reports
+
+The repository includes generated reports for:
+
+1. an **Enterprise RAG Assistant**, and
+2. a **High-Autonomy Service Agent**.
+
+These show the full decision chain, including risk score, evidence assurance, control results, exceptions and failed policy gates.
 
 ## Framework alignment
 
 The lab uses original control statements and does **not** reproduce proprietary standards.
 
-Its control taxonomy is designed to be compatible with concepts commonly found in:
+Its taxonomy is designed to be compatible with concepts commonly found in:
 
-- ISO/IEC 42001 AI management systems,
+- ISO/IEC 42001,
 - NIST AI Risk Management Framework,
 - cybersecurity and privacy management systems,
-- secure software and enterprise architecture practices.
+- secure software and enterprise architecture practices,
+- LLM application security and adversarial testing.
 
-Mappings are illustrative and should not be treated as certification evidence or a substitute for the official standards.
-
-## Current capabilities
-
-### Risk assessment
-
-The engine scores an AI use case across:
-
-- business criticality,
-- data sensitivity,
-- autonomy,
-- external exposure,
-- model dependency,
-- human impact,
-- regulatory impact,
-- security impact.
-
-### Control library
-
-The included control catalogue covers:
-
-- governance and accountability,
-- AI inventory and ownership,
-- data governance,
-- model and supplier risk,
-- secure architecture,
-- access control,
-- prompt and input security,
-- retrieval-augmented generation controls,
-- agent/tool-use controls,
-- human oversight,
-- logging and monitoring,
-- evaluation and red teaming,
-- incident response,
-- privacy,
-- change management,
-- resilience and fallback.
-
-### Evidence-based assurance
-
-Controls can be marked as:
-
-- `implemented`
-- `partial`
-- `planned`
-- `not_implemented`
-- `not_applicable`
-
-Each assessment can reference evidence such as:
-
-- architecture diagrams,
-- test results,
-- risk assessments,
-- approval records,
-- configuration exports,
-- monitoring dashboards,
-- supplier documentation.
-
-The scoring model discounts controls without evidence.
-
-### Decision output
-
-The assurance engine returns one of:
-
-- `APPROVE`
-- `CONDITIONAL_APPROVAL`
-- `REVIEW_REQUIRED`
-- `BLOCK`
-
-The report explains the decision and lists unresolved controls.
+Mappings are illustrative and are not certification evidence.
 
 ## Repository structure
 
@@ -120,25 +122,30 @@ ai-governance-assurance-lab/
 │   └── sample-evidence.csv
 ├── docs/
 │   ├── assurance-model.md
+│   ├── evidence-quality.md
+│   ├── exception-management.md
+│   ├── policy-as-code.md
 │   ├── framework-mapping.md
 │   └── threat-and-risk-model.md
 ├── examples/
 │   ├── enterprise-rag-assistant.json
 │   └── high-autonomy-agent.json
+├── reports/
+│   ├── enterprise-rag-assistant-assurance.md
+│   └── high-autonomy-agent-assurance.md
 ├── scripts/
 │   ├── assess.py
 │   └── generate_report.py
 ├── src/ai_governance_assurance/
-│   ├── __init__.py
-│   ├── models.py
-│   ├── risk_engine.py
-│   ├── control_engine.py
 │   ├── assurance.py
-│   └── reporting.py
+│   ├── control_engine.py
+│   ├── evidence.py
+│   ├── exceptions.py
+│   ├── models.py
+│   ├── policy.py
+│   ├── reporting.py
+│   └── risk_engine.py
 ├── tests/
-│   ├── test_risk_engine.py
-│   ├── test_control_engine.py
-│   └── test_assurance.py
 ├── .github/workflows/tests.yml
 ├── LICENSE
 └── pyproject.toml
@@ -156,93 +163,57 @@ pytest -q
 Run an assessment:
 
 ```bash
-python scripts/assess.py examples/enterprise-rag-assistant.json
+python scripts/assess.py   examples/enterprise-rag-assistant.json   --as-of 2026-09-10
 ```
 
-Generate a Markdown assurance report:
+Generate a report:
 
 ```bash
-python scripts/generate_report.py \
-  examples/enterprise-rag-assistant.json \
-  --output assurance-report.md
+python scripts/generate_report.py   examples/enterprise-rag-assistant.json   --as-of 2026-09-10   --output assurance-report.md
 ```
-
-## Example decision flow
-
-```text
-AI use case
-    ↓
-Inherent risk assessment
-    ↓
-Applicable control set
-    ↓
-Implementation status + evidence
-    ↓
-Control coverage
-    ↓
-Residual risk
-    ↓
-Assurance decision
-```
-
-## Example use case
-
-The included `enterprise-rag-assistant.json` represents an internal enterprise assistant that retrieves controlled organizational documents and can summarize them for authenticated employees.
-
-The assessment includes controls for:
-
-- identity and authorization,
-- data classification,
-- RAG content validation,
-- prompt injection,
-- security logging,
-- human oversight,
-- supplier risk,
-- evaluation and incident response.
 
 ## Design principles
 
 ### Evidence over assertion
 
-A control marked "implemented" but supported by no evidence receives less assurance credit than an evidenced control.
+The presence of a policy, diagram or statement is not automatically proof of control effectiveness.
 
-### Governance should be executable
+### Critical gaps should not disappear inside averages
 
-Risk and control decisions should be represented in structured data wherever practical, not only prose.
+Policy-as-code gates can block a decision even when aggregate scores look acceptable.
+
+### Exceptions should expire
+
+Risk acceptance should be explicit, approved, time-bound and visible.
+
+### Accountability should be operational
+
+Unresolved controls should have identifiable owners and dates, not simply appear in a risk register.
 
 ### Architecture is part of governance
 
-AI governance cannot be separated from identity, data, APIs, cloud architecture, application security, observability, and operational controls.
-
-### Human approval is not a universal mitigation
-
-Human oversight can reduce risk, but it should not be used as a substitute for technical controls where automated systems can cause material impact before a person can intervene.
+AI governance cannot be separated from identity, APIs, data, cloud architecture, RAG trust boundaries, tool permissions, application security and monitoring.
 
 ### Residual risk must remain visible
 
-The objective is not to produce a green dashboard. The objective is to support an informed decision.
+The purpose of assurance is to support an informed decision, not to force a predetermined approval.
 
 ## Roadmap
 
-### v0.2
-- richer evidence quality scoring,
-- policy-as-code control gates,
-- JSON/CSV batch assessment,
-- control ownership and due dates,
-- exception register.
-
 ### v0.3
-- AI agent assurance profile,
-- secure RAG assurance profile,
-- LLM security findings import,
-- supplier/model risk assessment.
+- import findings from `llm-security-lab`,
+- dedicated secure-RAG assurance profile,
+- dedicated agentic-AI assurance profile,
+- supplier/model dependency scoring,
+- machine-readable decision output.
 
 ### v0.4
-- web dashboard,
+- portfolio/batch assessment,
+- historical assurance comparison,
+- exception register dashboard,
 - audit trail,
-- assurance history and comparison,
-- machine-readable governance artefacts.
+- optional web interface.
 
 ## Disclaimer
 
-This project is educational and experimental. It does not constitute legal advice, certification guidance, or a complete AI governance programme.
+This project is educational and experimental. It does not constitute legal advice, certification guidance or a complete AI governance programme.
