@@ -1,0 +1,41 @@
+name: tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install package and test dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Assess Enterprise RAG example
+        run: python scripts/assess.py examples/enterprise-rag-assistant.json --as-of 2026-09-10
+
+      - name: Assess High-Autonomy Agent example
+        run: python scripts/assess.py examples/high-autonomy-agent.json --as-of 2026-09-10
+
+      - name: Generate assurance report
+        run: |
+          python scripts/generate_report.py \
+            examples/enterprise-rag-assistant.json \
+            --as-of 2026-09-10 \
+            --output /tmp/enterprise-report.md
