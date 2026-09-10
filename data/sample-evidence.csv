@@ -1,0 +1,8 @@
+control_id,evidence_reference,evidence_type,description
+GOV-01,EA-OWN-001,approval_record,Named system owner and risk owner approved
+DATA-01,DATA-CLASS-014,data_classification,Enterprise knowledge base classification completed
+SEC-01,IAM-DESIGN-003,architecture,SSO RBAC and document-level authorization design
+SEC-02,SEC-TEST-007,test_results,Prompt injection test set and mitigation results
+RAG-01,RAG-ARCH-004,architecture,Retrieved content trust-boundary design
+MON-01,LOG-CTRL-002,configuration,Security event logging configuration
+EVAL-01,AI-EVAL-006,test_results,Adversarial and misuse evaluation results

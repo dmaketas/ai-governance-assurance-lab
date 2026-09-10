@@ -1,0 +1,22 @@
+control_id,domain,title,description,minimum_risk,critical
+GOV-01,Governance,Named accountable owner,Assign accountable ownership for the AI use case and its lifecycle.,1,True
+GOV-02,Governance,Documented intended use and prohibited use,"Define intended use, users, boundaries and prohibited uses.",1,False
+GOV-03,Governance,Risk acceptance authority,Define who can accept residual AI risk and under which conditions.,2,True
+DATA-01,Data,Data classification and handling,Classify data used by the AI system and apply handling requirements.,1,True
+DATA-02,Data,Training and retrieval data provenance,"Maintain provenance and authorization for training, grounding and retrieval data.",2,False
+SEC-01,Security,Strong identity and authorization,"Apply authenticated access, least privilege and authorization enforcement.",1,True
+SEC-02,Security,Prompt and input security,"Assess and mitigate prompt injection, malicious inputs and instruction manipulation.",2,True
+RAG-01,RAG Security,Retrieved-content trust controls,"Treat retrieved content as untrusted and apply source, content and authorization controls.",2,True
+AGT-01,Agent Security,Tool-use authorization,Restrict tool access and enforce explicit authorization for consequential actions.,2,True
+AGT-02,Agent Security,Human approval for high-impact actions,Require approval gates where autonomous actions can create material impact.,3,True
+MOD-01,Model Risk,Model and supplier due diligence,"Assess model provenance, supplier controls, contractual safeguards and change risks.",2,False
+MOD-02,Model Risk,Model change and version control,Track material model/version changes and reassess risk when required.,2,False
+EVAL-01,Evaluation,Security and misuse testing,"Test expected, adversarial and misuse scenarios before deployment and after material change.",2,True
+EVAL-02,Evaluation,Quality and performance evaluation,Define and test acceptance criteria appropriate to the intended use.,1,False
+MON-01,Monitoring,Security logging and traceability,"Log relevant AI interactions, tool actions, failures and security events.",2,True
+MON-02,Monitoring,Operational monitoring,"Monitor model/system performance, anomalies and control failures.",2,False
+HUM-01,Human Oversight,Human oversight design,"Define when and how humans review, override or intervene.",2,False
+PRV-01,Privacy,Privacy and personal-data controls,"Apply minimization, access, retention and privacy requirements to personal data.",2,False
+IR-01,Incident Response,AI incident response,Extend incident procedures to AI-specific failure and abuse scenarios.,3,True
+RES-01,Resilience,Fallback and safe failure,"Define degraded-mode, fallback, shutdown and recovery behavior.",3,True
+CHG-01,Change Management,Controlled AI change process,"Assess material changes to models, prompts, tools, data and architecture before release.",2,False

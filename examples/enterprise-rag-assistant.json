@@ -1,0 +1,58 @@
+{
+  "name": "Enterprise RAG Assistant",
+  "description": "Internal assistant that retrieves controlled organizational documents and summarizes them for authenticated employees.",
+  "owner": "Enterprise Applications",
+  "factors": {
+    "business_criticality": 3,
+    "data_sensitivity": 4,
+    "autonomy": 2,
+    "external_exposure": 2,
+    "model_dependency": 4,
+    "human_impact": 3,
+    "regulatory_impact": 3,
+    "security_impact": 4
+  },
+  "control_status": {
+    "GOV-01": "implemented",
+    "GOV-02": "implemented",
+    "GOV-03": "implemented",
+    "DATA-01": "implemented",
+    "DATA-02": "partial",
+    "SEC-01": "implemented",
+    "SEC-02": "implemented",
+    "RAG-01": "implemented",
+    "AGT-01": "not_applicable",
+    "MOD-01": "partial",
+    "MOD-02": "implemented",
+    "EVAL-01": "implemented",
+    "EVAL-02": "implemented",
+    "MON-01": "implemented",
+    "MON-02": "partial",
+    "HUM-01": "implemented",
+    "PRV-01": "implemented",
+    "CHG-01": "implemented"
+  },
+  "evidence": {
+    "GOV-01": [
+      "EA-OWN-001"
+    ],
+    "DATA-01": [
+      "DATA-CLASS-014"
+    ],
+    "SEC-01": [
+      "IAM-DESIGN-003"
+    ],
+    "SEC-02": [
+      "SEC-TEST-007"
+    ],
+    "RAG-01": [
+      "RAG-ARCH-004"
+    ],
+    "MON-01": [
+      "LOG-CTRL-002"
+    ],
+    "EVAL-01": [
+      "AI-EVAL-006"
+    ]
+  }
+}

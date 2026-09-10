@@ -1,0 +1,49 @@
+{
+  "name": "High-Autonomy Service Agent",
+  "description": "Experimental AI agent that can call enterprise APIs and initiate operational actions.",
+  "owner": "Digital Innovation",
+  "factors": {
+    "business_criticality": 5,
+    "data_sensitivity": 4,
+    "autonomy": 5,
+    "external_exposure": 4,
+    "model_dependency": 5,
+    "human_impact": 4,
+    "regulatory_impact": 4,
+    "security_impact": 5
+  },
+  "control_status": {
+    "GOV-01": "implemented",
+    "GOV-02": "partial",
+    "GOV-03": "planned",
+    "DATA-01": "implemented",
+    "DATA-02": "partial",
+    "SEC-01": "implemented",
+    "SEC-02": "partial",
+    "RAG-01": "partial",
+    "AGT-01": "partial",
+    "AGT-02": "planned",
+    "MOD-01": "partial",
+    "MOD-02": "planned",
+    "EVAL-01": "planned",
+    "EVAL-02": "partial",
+    "MON-01": "partial",
+    "MON-02": "partial",
+    "HUM-01": "planned",
+    "PRV-01": "partial",
+    "IR-01": "planned",
+    "RES-01": "planned",
+    "CHG-01": "partial"
+  },
+  "evidence": {
+    "GOV-01": [
+      "OWNER-001"
+    ],
+    "DATA-01": [
+      "DATA-001"
+    ],
+    "SEC-01": [
+      "IAM-001"
+    ]
+  }
+}
